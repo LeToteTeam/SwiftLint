@@ -13,6 +13,9 @@ public struct TypeNameRule: ASTRule {
     public init() {}
 
     public let identifier = "type_name"
+    
+    private static let maxLength = 50
+    private static let minLength = 2
 
     public func validateFile(file: File) -> [StyleViolation] {
         return validateFile(file, dictionary: file.structure.dictionary)
@@ -59,12 +62,13 @@ public struct TypeNameRule: ASTRule {
                     location: location,
                     severity: .High,
                     reason: "Type name should start with an uppercase character: '\(name)'"))
-            } else if count(name) < 3 || count(name) > 40 {
+            } else if count(name) < TypeNameRule.minLength || count(name) > TypeNameRule.maxLength {
                 violations.append(StyleViolation(type: .NameFormat,
                     location: location,
                     severity: .Medium,
-                    reason: "Type name should be between 3 and 40 characters in length: " +
-                    "'\(name)'"))
+                    reason: "Type name should be between \(TypeNameRule.minLength) and " +
+                        "\(TypeNameRule.maxLength) characters in length: " +
+                        "'\(name)'"))
             }
         }
         return violations
@@ -73,7 +77,8 @@ public struct TypeNameRule: ASTRule {
     public let example = RuleExample(
         ruleName: "Type Name Rule",
         ruleDescription: "Type name should only contain alphanumeric characters, " +
-        "start with an uppercase character and between 3 and 40 characters in length.",
+            "start with an uppercase character and between \(TypeNameRule.minLength) and " +
+            "\(TypeNameRule.maxLength) characters in length.",
         nonTriggeringExamples: [],
         triggeringExamples: [],
         showExamples: false

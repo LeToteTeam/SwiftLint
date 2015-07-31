@@ -14,22 +14,15 @@ public struct Linter {
     private let file: File
 
     private let rules: [Rule] = [
-        LineLengthRule(),
+        ColonRule(),
+        ControlStatementRule(),
         LeadingWhitespaceRule(),
-        TrailingWhitespaceRule(),
+        LineLengthRule(),
+        NestingRule(),
         ReturnArrowWhitespaceRule(),
         TrailingNewlineRule(),
-        OperatorFunctionWhitespaceRule(),
-        ForceCastRule(),
-        FileLengthRule(),
-        TodoRule(),
-        ColonRule(),
         TypeNameRule(),
-        VariableNameRule(),
-        TypeBodyLengthRule(),
-        FunctionBodyLengthRule(),
-        NestingRule(),
-        ControlStatementRule()
+        VariableNameRule()
     ]
 
     public var styleViolations: [StyleViolation] {

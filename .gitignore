@@ -18,3 +18,5 @@ DerivedData
 *.xcuserstate
 
 SwiftLint.pkg
+
+.DS_Store

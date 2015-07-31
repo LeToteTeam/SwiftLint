@@ -12,13 +12,9 @@ public struct LineLengthRule: ParameterizedRule {
     public init() {}
 
     public let identifier = "line_length"
-
+    private static let maxLineLength = 120
     public let parameters = [
-        RuleParameter(severity: .VeryLow, value: 100),
-        RuleParameter(severity: .Low, value: 120),
-        RuleParameter(severity: .Medium, value: 150),
-        RuleParameter(severity: .High, value: 200),
-        RuleParameter(severity: .VeryHigh, value: 250)
+        RuleParameter(severity: .Low, value: LineLengthRule.maxLineLength)
     ]
 
     public func validateFile(file: File) -> [StyleViolation] {
@@ -28,7 +24,7 @@ public struct LineLengthRule: ParameterizedRule {
                     return StyleViolation(type: .Length,
                         location: Location(file: file.path, line: line.index),
                         severity: parameter.severity,
-                        reason: "Line should be 100 characters or less: currently " +
+                        reason: "Line should be \(LineLengthRule.maxLineLength) characters or less: currently " +
                         "\(count(line.content)) characters")
                 }
             }
@@ -38,7 +34,7 @@ public struct LineLengthRule: ParameterizedRule {
 
     public let example = RuleExample(
         ruleName: "Line Length Rule",
-        ruleDescription: "Lines should be less than 100 characters.",
+        ruleDescription: "Lines should be less than \(LineLengthRule.maxLineLength) characters.",
         nonTriggeringExamples: [],
         triggeringExamples: [],
         showExamples: false

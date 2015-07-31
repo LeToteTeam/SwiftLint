@@ -14,6 +14,9 @@ public struct VariableNameRule: ASTRule {
 
     public let identifier = "variable_name"
 
+    private static let maxLength = 50
+    private static let minLength = 1
+    
     public func validateFile(file: File) -> [StyleViolation] {
         return validateFile(file, dictionary: file.structure.dictionary)
     }
@@ -60,12 +63,13 @@ public struct VariableNameRule: ASTRule {
                     location: location,
                     severity: .High,
                     reason: "Variable name should start with a lowercase character: '\(name)'"))
-            } else if count(name) < 3 || count(name) > 40 {
+            } else if count(name) < VariableNameRule.minLength || count(name) > VariableNameRule.maxLength {
                 violations.append(StyleViolation(type: .NameFormat,
                     location: location,
                     severity: .Medium,
-                    reason: "Variable name should be between 3 and 40 characters in length: " +
-                    "'\(name)'"))
+                    reason: "Variable name should be between \(VariableNameRule.minLength) and " +
+                        "\(VariableNameRule.maxLength) characters in length: " +
+                        "'\(name)'"))
             }
         }
         return violations
@@ -74,7 +78,8 @@ public struct VariableNameRule: ASTRule {
     public let example = RuleExample(
         ruleName: "Variable Name Rule",
         ruleDescription: "Variable name should only contain alphanumeric characters, " +
-        "start with a a lowercase character and be between 3 and 40 characters in length.",
+            "start with a lowercase character and be between \(VariableNameRule.minLength) and " +
+            "\(VariableNameRule.maxLength) characters in length.",
         nonTriggeringExamples: [],
         triggeringExamples: [],
         showExamples: false
