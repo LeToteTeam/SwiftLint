@@ -24,7 +24,7 @@ class StringRuleTests: XCTestCase {
             XCTAssertEqual(violations(testCase.0 + longLine), [StyleViolation(type: .Length,
                 location: Location(file: nil, line: 1),
                 severity: testCase.2,
-                reason: "Line should be 100 characters or less: " +
+                reason: "Line should be 120 characters or less: " +
                 "currently \(testCase.1) characters")])
         }
     }
@@ -89,5 +89,9 @@ class StringRuleTests: XCTestCase {
 
     func testColon() {
         verifyRule(ColonRule().example, type: .Colon)
+    }
+    
+    func testBraceNewline() {
+        verifyRule(BraceNewlineRule().example, type: .BraceNewline, commentDoesntViolate: false)
     }
 }

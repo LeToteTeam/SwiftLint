@@ -19,6 +19,7 @@ public enum StyleViolationType: String, Printable {
     case Colon                      = "Colon"
     case Nesting                    = "Nesting"
     case ControlStatement           = "Control Statement Parentheses"
+    case BraceNewline               = "Brace Newline"
 
     public var description: String { return rawValue }
 }

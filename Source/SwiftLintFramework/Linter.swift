@@ -14,6 +14,7 @@ public struct Linter {
     private let file: File
 
     private let rules: [Rule] = [
+        BraceNewlineRule(),
         ColonRule(),
         ControlStatementRule(),
         LeadingWhitespaceRule(),

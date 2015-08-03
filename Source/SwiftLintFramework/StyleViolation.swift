@@ -15,7 +15,7 @@ public struct StyleViolation: Printable, Equatable {
         // {full_path_to_file}{:line}{:character}: {error,warning}: {content}
         return "\(location): " +
             "\(severity.xcodeSeverityDescription): " +
-            "\(type) Violation (\(severity) Severity): " +
+            "Code Convention Violation: " +
             (reason ?? "")
     }
 

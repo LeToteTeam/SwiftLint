@@ -29,7 +29,7 @@ public enum ViolationSeverity: Int, Printable, Comparable {
     }
 
     public var isError: Bool {
-        return self > Medium
+        return true
     }
 
     public var xcodeSeverityDescription: String {
