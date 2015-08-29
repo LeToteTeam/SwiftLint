@@ -80,14 +80,15 @@ struct LintCommand: CommandType {
             " path \(path)"))
     }
 
-    private func filesToLintAtPath(path: String) -> [String] {
+    private func filesToLintAtPath(path: String) -> Set<String> {
         let absolutePath = path.absolutePathRepresentation()
         var isDirectory: ObjCBool = false
         if fileManager.fileExistsAtPath(absolutePath, isDirectory: &isDirectory) {
             if isDirectory {
-                return fileManager.allFilesRecursively(directory: absolutePath).filter {
+                let files = fileManager.allFilesRecursively(directory: absolutePath).filter {
                     $0.isSwiftFile()
                 }
+                return Set(files)
             } else if absolutePath.isSwiftFile() {
                 return [absolutePath]
             }
